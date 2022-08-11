@@ -1,0 +1,39 @@
+:root{
+  background-color:#F4F6FF;
+}
+h2{
+position:relative;
+right:30%;
+margin:0;
+}
+h5{
+padding:1%;
+}
+a{
+  text-decoration: none;
+  color: #40514E;
+}
+.TradingDiv{
+  height:100%;
+  background-color:#F7F6F2;
+}
+.CoinDiv{
+  height:50%;
+  background-color:#F5F5F5;
+}
+.TradesDiv{
+  height:30%;
+  background-color:#F4F6FF;
+}
+.orderSelector{
+  margin: 120px 50px 100px 0px;
+}
+.orderForm{
+  margin: 120px 0px 100px 50px;
+}
+.executeTrade{
+  margin: 325px 75px 0px 0px;
+}
+.tradePadding{
+  padding:3%;
+}
