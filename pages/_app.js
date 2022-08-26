@@ -1,28 +1,22 @@
-import { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import Header from "../components/header";
-import Coins from "../components/Coins";
-import Trades from "../components/Trades";
-import Trading from "../components/Trading";
 import "../public/css/styles.css";
+// import App from 'next/app'
 
-
-
-
-
-
-  export default function HomePage() {
-
-  useEffect(()=>{
-          import("bootstrap/dist/js/bootstrap");
-  },[])
-
+function MyApp({ Component, pageProps }) {
   return (
-    <div>
-      <Header />
-      <Coins />
-      <Trades />
-      <Trading />
-    </div>
-  );
-}
+    <Component {...pageProps} />
+)}
+
+// Only uncomment this method if you have blocking data requirements for
+// every single page in your application. This disables the ability to
+// perform automatic static optimization, causing every page in your app to
+// be server-side rendered.
+//
+// MyApp.getInitialProps = async (appContext) => {
+//   // calls page's `getInitialProps` and fills `appProps.pageProps`
+//   const appProps = await App.getInitialProps(appContext);
+//
+//   return { ...appProps }
+// }
+
+export default MyApp

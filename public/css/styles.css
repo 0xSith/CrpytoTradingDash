@@ -1,11 +1,6 @@
 :root{
   background-color:#F4F6FF;
 }
-h2{
-position:relative;
-right:30%;
-margin:0;
-}
 h5{
 padding:1%;
 }
@@ -16,6 +11,7 @@ a{
 .TradingDiv{
   height:100%;
   background-color:#F7F6F2;
+  z-index: -1;
 }
 .CoinDiv{
   height:50%;
@@ -36,4 +32,11 @@ a{
 }
 .tradePadding{
   padding:3%;
+}
+.offcanvas.offcanvas-bottom{
+  left:50%;
+}
+.offcanvasTrade{
+  height: 80%;
+  margin-top:5%;
 }
