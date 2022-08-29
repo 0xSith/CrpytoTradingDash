@@ -3,8 +3,9 @@ import Header from "../components/header";
 import Coins from "../components/Coins";
 import Trades from "../components/Trades";
 import Trading from "../components/Trading";
-import connectMongo from '../utils/connectMongo';
-import User from '../models/userModel';
+import connectMongo from './api/lib/connectMongo';
+import User from './models/userModel';
+const ccxt = require ('ccxt');
 
 
 
@@ -22,7 +23,15 @@ useEffect(()=>{
 },[])
 
 async function fetchData(){
-const response = await fetch('http://localhost:3000/api/binance')
+const response = await fetch("/api/binanceData", {
+    method: "POST",
+    body: JSON.stringify({
+        id: user
+    }),
+    headers: {
+        "Content-type": "application/json; charset=UTF-8"
+    }
+})
 const data = await response.json();
 
   setBalance(Math.floor(data.balance));
@@ -30,14 +39,16 @@ const data = await response.json();
   setStreamedCoins(data.streamedCoins);
 }
 
+if(user.length > 0){
 fetchData();
+}
 
 return (
   <div>
     <Header usersProp={usersArray} setUser={setUser} />
-    <Coins setCoin ={setCoin} />
-    <Trades positions={positions} />
-    <Trading coin={coin} balance={balance} streamedCoins={streamedCoins} />
+    <Coins setCoin ={setCoin}  />
+    <Trades positions={positions} user={user} />
+    <Trading coin={coin} balance={balance} streamedCoins={streamedCoins} user={user} />
   </div>
 );
 }
@@ -46,7 +57,7 @@ return (
 export async function getServerSideProps() {
 
   await connectMongo();
-  const users = await User.find();
+  const users = await User.find({},'username _id');
 
   return {
     props: {

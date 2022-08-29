@@ -1,18 +1,29 @@
 
-import selectUser from '../api/users/selectUser';
 const ccxt = require ('ccxt');
-const apiKey = selectUser().Key;
-const apiSecret = selectUser().Secret;
+import connectMongo from '../api/lib/connectMongo';
+import User from '../models/userModel';
 
-let exchange = new ccxt.binanceusdm (
-  {
-    'apiKey': apiKey,
-    'secret': apiSecret,
-  })
-  exchange.setSandboxMode(true);
 
 
 export default async function closeTrade(req, res){
+  const userID = req.body.userId;
+
+  const selectedUser = await User.findById({_id:userID},'key secret');
+  const {key,secret} = selectedUser;
+
+
+  let exchange = new ccxt.binanceusdm (
+    {
+      'apiKey': key,
+      'secret': secret,
+      'enableRateLimit': true
+    })
+
+    if(userID === "630ce78c3cb9900d4e7c0c63"){
+    exchange.setSandboxMode(true);
+  }
+
+
   const symbol = req.body.symbol
   const side = req.body.side
   const price = req.body.price

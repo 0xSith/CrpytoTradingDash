@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 
 export default function Trading(props){
   let multi = 0;
+  const user =props.user;
   const streamedCoins = props.streamedCoins;
   const coin = props.coin;
   const balance = props.balance;
@@ -152,6 +153,7 @@ return(
           </div>
         </div>
       </div>
+
     <div className="container text-center border border-top-0 border-info border-opacity-25">
     <div className="row">
       <div className="col-6">
@@ -172,6 +174,7 @@ return(
           <span className="input-group-text input-group-sm">$</span>
         </div>
       </form>
+
         <div className="btn-group pb-3" role="group">
           <input type="radio" className="btn-check" name="btnradio" id="btnradio1" autoComplete="off" onClick={handleClickSize} value= "0.25" />
           <label className="btn btn-outline-primary" htmlFor="btnradio1">25%</label>
@@ -195,7 +198,8 @@ return(
             <li><button className="dropdown-item" type="button" onClick={() => setOrderType(event.target.name)} name="Stop Market" >Stop Market</button></li>
             <li><button className="dropdown-item" type="button" onClick={() => setOrderType(event.target.name)} name="Stop Limit" >Stop Limit</button></li>
           </ul>
-        </div>
+          </div>
+
     <button className="btn btn-md btn-dark position-absolute end-0 w-25 executeTrade" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom4">Trade</button>
     <div className="offcanvas offcanvas-end offcanvasTrade text-bg-dark border border-light rounded" tabIndex="-1" id="offcanvasBottom4" data-bs-backdrop="false" >
     <form action="/api/TradeBinance" method="post">
@@ -209,6 +213,7 @@ return(
         <div className = "p-3 input-group col">
           <span className="input-group-text " id="basic-addon1"><b>Trade Type:</b></span>
           <input type="text" className="input-group-sm border border-light" id="executeTrade" value={tradeType} name="trade" readOnly />
+          <input type ="text" name="userId" defaultValue={user} hidden />
         </div>
         <div className = "p-3 input-group col">
           <span className="input-group-text" id="basic-addon1"><b>Quantity:</b></span>
@@ -239,14 +244,17 @@ return(
     </div>
     </form>
     </div>
+
     <h4 className ="text-end pe-5 pb-4" id="costLabel">Cost:${cost}</h4>
     </div>
     </div>
+
     <form className="text-center pt-5">
     <label htmlFor="customRange3" className="form-label"><h4>Leverage</h4></label>
 <input type="range" className="form-range" min="1" max ={maxLev} step="1" id="customRange3" onChange={() => setLeverage(event.target.valueAsNumber)} onMouseOver ={handleMaxLev} />
 <output id="leverageOutput"></output>
 </form>
-  </div>
+
+</div>
 );
 }

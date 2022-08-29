@@ -1,20 +1,29 @@
 
-import { sendUser } from '../api/users/selectUser';
 const ccxt = require ('ccxt');
-const apiKey = theUser.Key;
-const apiSecret = theUser.Secret;
-
-let exchange = new ccxt.binanceusdm (
-  {
-    'apiKey': apiKey,
-    'secret': apiSecret,
-  })
-  exchange.setSandboxMode(true);
+import connectMongo from '../api/lib/connectMongo';
+import User from '../models/userModel';
 
 
 //Execute Trades
 
 export default async function sendTrade(req,res) {
+  const userID = req.body.userId;
+
+  const selectedUser = await User.findById({_id:userID},'key secret');
+  const {key,secret} = selectedUser;
+
+
+  let exchange = new ccxt.binanceusdm (
+    {
+      'apiKey': key,
+      'secret': secret,
+      'enableRateLimit': true
+    })
+
+    if(userID === "630ce78c3cb9900d4e7c0c63"){
+    exchange.setSandboxMode(true);
+  }
+
   const coin = req.body.coin + '/USDT';
   const trade = req.body.trade;
   const order = req.body.order;

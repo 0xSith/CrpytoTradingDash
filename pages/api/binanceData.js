@@ -1,23 +1,24 @@
+const ccxt = require ('ccxt');
+import connectMongo from '../api/lib/connectMongo';
+import User from '../models/userModel';
 
-const ccxt = require ('ccxt')
+export default async function getData(req,res){
+  const userID = req.body.id;
+  const selectedUser = await User.findById({_id:userID},'key secret');
+  const {key,secret} = selectedUser;
 
-
-// Get account information
-
-export default async function getAccountInfo(req,res){
-if(req.body === ""){
-res.status(200)
-}else{
-const apiKey =req.body.Key[1];
-const apiSecret =req.body.Secret[1];
 
   let exchange = new ccxt.binanceusdm (
     {
-      'apiKey': apiKey,
-      'secret': apiSecret,
+      'apiKey': key,
+      'secret': secret,
       'enableRateLimit': true
     })
+
+    if(userID === "630ce78c3cb9900d4e7c0c63"){
     exchange.setSandboxMode(true);
+  }
+
 
   let accountBalances = await exchange.fetchBalance();
   let accountPositions = await exchange.fetchPositions();
@@ -50,5 +51,5 @@ const positions = positionsRaw.map(selectProps("symbol", "leverage","positionAmt
 
 
   res.status(200).json({positions:positions, balance:balance, streamedCoins: streamedCoins});
-}
+
 }

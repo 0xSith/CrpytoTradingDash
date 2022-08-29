@@ -6,11 +6,13 @@ import { useState, useEffect } from 'react';
 export default function Trades(props){
 
   const positions = props.positions;
+  const user =props.user;
   const [symbol,setSymbol] = useState("");
   const [side,setSide] = useState("");
 
 useEffect(() => {
-document.getElementById("orderTypeMenu").innerHTML = symbol;
+document.getElementById("LimitorderTypeMenu").innerHTML = symbol;
+document.getElementById("MarketorderTypeMenu").innerHTML = symbol;
 },[symbol])
 
 function clickTakeProfit(){
@@ -33,6 +35,8 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
     <div className="w-50 position-fixed start-0 bottom-0 border border-end-0 border-top-0 border-primary border-2 border-opacity-75 rounded TradesDiv text-center">
       <h4 className="form-label">Trades</h4>
       <div className="container tradePadding">
+
+
       {positions.map((position) =>{
         return(
         <div className="row">
@@ -68,6 +72,8 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
       )
       })}
       </div>
+
+
       <div className="container tradePadding">
         <div className="row">
           <div className="col">
@@ -90,6 +96,9 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
               </div>
             </div>
           </div>
+
+
+
           <div className="col">
             <button className="btn btn-dark" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom2">Limit Close</button>
             <div className="offcanvas offcanvas-bottom w-50 text-bg-dark border border-secondary rounded" tabIndex="-1" id="offcanvasBottom2" data-bs-backdrop="false" >
@@ -97,9 +106,12 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
                 <h5 className="offcanvas-title" id="offcanvasBottomLabel2">Limit Close</h5>
                 <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
               </div>
+
+
+
               <form action="/api/CloseTrade" method="post">
               <div className="dropdown">
-                <button className="btn btn-light dropdown-toggle btn" type="button" data-bs-toggle="dropdown" id="orderTypeMenu" ></button>
+                <button className="btn btn-light dropdown-toggle btn" type="button" data-bs-toggle="dropdown" id="LimitorderTypeMenu" ></button>
                 <ul className="dropdown-menu dropdown-menu-light">
                 {positions.map((position) => {
                   return (<li><button className="dropdown-item" type="button" onClick={() => {
@@ -110,6 +122,7 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
                 </ul>
                 <input type="text" name="symbol" defaultValue={symbol} hidden />
                 <input type="text" name="side" defaultValue={side} hidden />
+                <input type ="text" name="userId" defaultValue={user} hidden />
               </div>
               <div className="offcanvas-body">
                 <div className = "p-3">
@@ -138,6 +151,9 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
               </form>
             </div>
           </div>
+
+
+
           <div className ="col">
             <button className="btn btn-info" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom3">Market Close</button>
             <div className="offcanvas offcanvas-bottom w-50 text-bg-info border border-primary rounded" tabIndex="-1" id="offcanvasBottom3" data-bs-backdrop="false" >
@@ -146,19 +162,24 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
                 <button type="button" className="btn-close" data-bs-dismiss="offcanvas"></button>
               </div>
               <div className="offcanvas-body">
+
+
+
                 <form action="/api/CloseTrade" method="post">
                 <div className="dropdown p-1">
-                  <button className="btn btn-dark dropdown-toggle btn" type="button" data-bs-toggle="dropdown" id="orderTypeMenu" ></button>
+                  <button className="btn btn-dark dropdown-toggle btn" type="button" data-bs-toggle="dropdown" id="MarketorderTypeMenu" ></button>
                   <ul className="dropdown-menu dropdown-menu-dark">
                   {positions.map((position) => {
                     return (<li><button className="dropdown-item" type="button" onClick={() => {
                       setSymbol(position.symbol)
+                      console.log("Market onClick called");
                       position.positionAmt < 0 ? setSide("Buy"): setSide("Sell")
                     }}>{position.symbol} {position.positionAmt < 0 ? "SHORT":"LONG"}</button></li>)
                   })}
                   </ul>
                   <input type="text" name="symbol" defaultValue={symbol} hidden />
                   <input type="text" name="side" defaultValue={side} hidden />
+                  <input type ="text" name="userId" defaultValue={user} hidden />
                 </div>
                 <div className = "p-3">
                   <input type="number" className="input-group-lg border border-primary rounded" placeholder="Position Size" id="posSizeMarket" step="0.001" name="quantity" />
@@ -180,6 +201,9 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
                   <button type="submit" className="btn btn-dark btn-sm w-25" onClick={clickMarketClose} >Submit</button>
                 </div>
                 </form>
+
+
+
               </div>
             </div>
           </div>

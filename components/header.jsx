@@ -8,11 +8,9 @@ const users = props.usersProp[0];
 const listUsers = users.map((user) => {
 
   return (
-    <li className="nav-item w-100">
-    <input type="submit" className="btn-check" onClick={handleUserSelect} id={user.user} autoComplete="off" name="user" defaultValue={user.user} />
-    <input type="input" name="Key" defaultValue={user.Key} hidden />
-    <input type="input" name="Secret" defaultValue={user.Secret} hidden />
-    <label className="btn btn-outline-light w-100 border-start-0 border-end-0 rounded-0 border-opacity-25" htmlFor={user.user} >{user.user}</label>
+    <li className="nav-item">
+    <input type="radio" className="btn-check" onClick={handleUserSelect} id={user._id} autoComplete="off" name="userID" />
+    <label className="btn btn-outline-light border-start-0 w-100 border-end-0 rounded-0 border-opacity-25" htmlFor={user._id} >{user.username}</label>
   </li>
 )})
 
@@ -34,9 +32,9 @@ props.setUser(event.target.id);
       </form>
       </div>
       <form className="d-flex" role="search" action="/api/users/add" method="post">
-        <input className="form-control me-2" type="input" placeholder="Username" name="user" required />
-        <input className="form-control me-2" type="input" placeholder="Key" name="Key" required  />
-        <input className="form-control me-2" type="input" placeholder="Secret" name="Secret" required  />
+        <input className="form-control me-2" type="input" placeholder="Username" name="username" required />
+        <input className="form-control me-2" type="input" placeholder="Key" name="key" required  />
+        <input className="form-control me-2" type="input" placeholder="Secret" name="secret" required  />
         <button className="btn btn-outline-primary" type="submit">Submit</button>
       </form>
     </div>
