@@ -1,6 +1,6 @@
 const ccxt = require ('ccxt');
 import connectMongo from '../api/lib/connectMongo';
-import User from '../models/userModel';
+import User from '../api/models/userModel';
 
 export default async function getData(req,res){
   const userID = req.body.id;

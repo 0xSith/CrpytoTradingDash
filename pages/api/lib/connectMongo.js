@@ -5,7 +5,7 @@ const connectMongo = () => {
     console.log('Already connected');
     return;
   }
-  mongoose.connect(process.env.MONGODB_URI,{},err =>{
+  mongoose.connect(process.env.MONGODB_URI,err =>{
     if(err) throw err;
     console.log('Connected Successfully');
   })

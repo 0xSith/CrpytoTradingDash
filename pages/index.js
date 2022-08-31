@@ -4,7 +4,7 @@ import Coins from "../components/Coins";
 import Trades from "../components/Trades";
 import Trading from "../components/Trading";
 import connectMongo from './api/lib/connectMongo';
-import User from './models/userModel';
+import User from './api/models/userModel';
 const ccxt = require ('ccxt');
 
 
