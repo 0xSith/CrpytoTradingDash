@@ -8,6 +8,7 @@
  "dependencies": {
   "bcrypt": "^5.0.1",
   "bootstrap": "^5.2.0",
+  "ccxt": "^1.92.95",
   "mongoose": "^6.5.2",
   "next": "^12.2.4",
   "react": "^18.2.0",

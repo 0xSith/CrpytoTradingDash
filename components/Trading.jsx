@@ -195,8 +195,7 @@ return(
           <ul className="dropdown-menu dropdown-menu-dark">
             <li><button className="dropdown-item" type="button" onClick={() => setOrderType(event.target.name)} name="Market" >Market</button></li>
             <li><button className="dropdown-item" type="button" onClick={() => setOrderType(event.target.name)} name="Limit" >Limit</button></li>
-            <li><button className="dropdown-item" type="button" onClick={() => setOrderType(event.target.name)} name="Stop Market" >Stop Market</button></li>
-            <li><button className="dropdown-item" type="button" onClick={() => setOrderType(event.target.name)} name="Stop Limit" >Stop Limit</button></li>
+            
           </ul>
           </div>
 

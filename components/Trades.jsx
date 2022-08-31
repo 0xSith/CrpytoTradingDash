@@ -15,18 +15,25 @@ document.getElementById("LimitorderTypeMenu").innerHTML = symbol;
 document.getElementById("MarketorderTypeMenu").innerHTML = symbol;
 },[symbol])
 
-function clickTakeProfit(){
-let takeProfit = document.getElementById("takeProfit").valueAsNumber;
-let stopLoss =document.getElementById("stopLoss").valueAsNumber;
-}
 
-function clickLimitClose(){
-let closeLimit = document.getElementById("closeLimit").valueAsNumber;
-let posSize = document.getElementById("posSizeLimit").valueAsNumber;
-}
+function handleClickRadio(){
 
-function clickMarketClose(){
-let posSize = document.getElementById("posSizeMarket").valueAsNumber;
+  let multi = event.target.value;
+  let id = "";
+
+  if(event.target.name == "btnradioLimit"){
+    id = "posSizeLimit";
+  }
+
+  if(event.target.name == "btnradioMarket"){
+    id= "posSizeMarket";
+  }
+
+  positions.map((position) => {
+    if(position.symbol == symbol){
+     document.getElementById(id).value = multi * position.positionAmt;
+   }
+ });
 }
 
 
@@ -76,26 +83,7 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
 
       <div className="container tradePadding">
         <div className="row">
-          <div className="col">
-            <button className="btn btn-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasBottom1">Take Profit/StopLoss</button>
-            <div className="offcanvas offcanvas-bottom w-50 text-bg-primary border border-info rounded" tabIndex="-1" id="offcanvasBottom1" data-bs-backdrop="false" >
-              <div className="offcanvas-header">
-                <h5 className="offcanvas-title" id="offcanvasBottomLabel1">Take Profit/StopLoss</h5>
-                <button type="button" className="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
-              </div>
-              <div className="offcanvas-body">
-                <div className = "p-3">
-                  <input type="number" className="input-group-lg border border-info rounded" placeholder="Take Profit" id="takeProfit" />
-                </div>
-                <div className = "p-3">
-                  <input type="number" className="input-group-lg border border-info rounded" placeholder="Stop Loss" id="stopLoss" />
-                </div>
-                <div className = "p-3">
-                  <button type="submit" className="btn btn-light btn-sm w-25" onClick={clickTakeProfit}>Submit</button>
-                </div>
-              </div>
-            </div>
-          </div>
+
 
 
 
@@ -132,20 +120,20 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
                   <input type="number" className="input-group-lg border border-secondary rounded" placeholder="Position Size" step="0.001" id="posSizeLimit" name="quantity" />
                 </div>
                 <div className="btn-group pb-3" role="group">
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradioLimit1" autoComplete="off"  value= "0.25" />
+                  <input type="radio" className="btn-check" name="btnradioLimit" id="btnradioLimit1" autoComplete="off" onChange={handleClickRadio} value= "0.25" />
                   <label className="btn btn-outline-light" htmlFor="btnradioLimit1">25%</label>
 
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradioLimit2" autoComplete="off"  value="0.5" />
+                  <input type="radio" className="btn-check" name="btnradioLimit" id="btnradioLimit2" autoComplete="off" onChange={handleClickRadio} value="0.5" />
                   <label className="btn btn-outline-light" htmlFor="btnradioLimit2">50%</label>
 
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradioLimit3" autoComplete="off"  value="0.75" />
+                  <input type="radio" className="btn-check" name="btnradioLimit" id="btnradioLimit3" autoComplete="off" onChange={handleClickRadio} value="0.75" />
                   <label className="btn btn-outline-light" htmlFor="btnradioLimit3">75%</label>
 
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradioLimit4" autoComplete="off"  value="1" />
+                  <input type="radio" className="btn-check" name="btnradioLimit" id="btnradioLimit4" autoComplete="off" onChange={handleClickRadio} value="1" />
                   <label className="btn btn-outline-light" htmlFor="btnradioLimit4">100%</label>
                 </div>
                 <div className = "p-3">
-                  <button type="submit" className="btn btn-light btn-sm w-25" onClick={clickLimitClose}>Submit</button>
+                  <button type="submit" className="btn btn-light btn-sm w-25">Submit</button>
                 </div>
               </div>
               </form>
@@ -172,7 +160,6 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
                   {positions.map((position) => {
                     return (<li><button className="dropdown-item" type="button" onClick={() => {
                       setSymbol(position.symbol)
-                      console.log("Market onClick called");
                       position.positionAmt < 0 ? setSide("Buy"): setSide("Sell")
                     }}>{position.symbol} {position.positionAmt < 0 ? "SHORT":"LONG"}</button></li>)
                   })}
@@ -184,21 +171,25 @@ let posSize = document.getElementById("posSizeMarket").valueAsNumber;
                 <div className = "p-3">
                   <input type="number" className="input-group-lg border border-primary rounded" placeholder="Position Size" id="posSizeMarket" step="0.001" name="quantity" />
                 </div>
+
+
                 <div className="btn-group pb-3" role="group">
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradioMarket1" autoComplete="off"  value= "0.25" />
+                  <input type="radio" className="btn-check" name="btnradioMarket" id="btnradioMarket1" autoComplete="off" onChange={handleClickRadio}  value= "0.25" />
                   <label className="btn btn-outline-dark" htmlFor="btnradioMarket1">25%</label>
 
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradioMarket2" autoComplete="off"  value="0.5" />
+                  <input type="radio" className="btn-check" name="btnradioMarket" id="btnradioMarket2" autoComplete="off" onChange={handleClickRadio} value="0.5" />
                   <label className="btn btn-outline-dark" htmlFor="btnradioMarket2">50%</label>
 
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradioMarket3" autoComplete="off"  value="0.75" />
+                  <input type="radio" className="btn-check" name="btnradioMarket" id="btnradioMarket3" autoComplete="off" onChange={handleClickRadio} value="0.75" />
                   <label className="btn btn-outline-dark" htmlFor="btnradioMarket3">75%</label>
 
-                  <input type="radio" className="btn-check" name="btnradio" id="btnradioMarket4" autoComplete="off"  value="1" />
+                  <input type="radio" className="btn-check" name="btnradioMarket" id="btnradioMarket4" autoComplete="off" onChange={handleClickRadio} value="1" />
                   <label className="btn btn-outline-dark" htmlFor="btnradioMarket4">100%</label>
                 </div>
+
+
                 <div className = "p-3">
-                  <button type="submit" className="btn btn-dark btn-sm w-25" onClick={clickMarketClose} >Submit</button>
+                  <button type="submit" className="btn btn-dark btn-sm w-25" >Submit</button>
                 </div>
                 </form>
 
