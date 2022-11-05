@@ -4,19 +4,21 @@ import { useState, useEffect } from 'react';
 
 
 export default function Header(props) {
-const users = props.usersProp[0];
-const listUsers = users.map((user) => {
-
-  return (
-    <li className="nav-item">
-    <input type="radio" className="btn-check" onClick={handleUserSelect} id={user._id} autoComplete="off" name="userID" />
-    <label className="btn btn-outline-light border-start-0 w-100 border-end-0 rounded-0 border-opacity-25" htmlFor={user._id} >{user.username}</label>
-  </li>
-)})
+// const users = props.usersProp[0];
+// const listUsers = users.map((user) => {
+//
+//   return (
+//     <li className="nav-item">
+//     <input type="radio" className="btn-check" onClick={handleUserSelect} id={user._id} autoComplete="off" name="userID" />
+//     <label className="btn btn-outline-light border-start-0 w-100 border-end-0 rounded-0 border-opacity-25" htmlFor={user._id} >{user.username}</label>
+//   </li>
+// )})
 
 function handleUserSelect(){
 props.setUser(event.target.id);
 }
+//{listUsers} needs to be put in the <form> located in the bar
+
 
   return (
   <nav className="navbar navbar-dark bg-dark mb-5 headerNav">
@@ -28,7 +30,7 @@ props.setUser(event.target.id);
     <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
       <div className="btn-group-vertical w-100 gap-2 pb-4" role="group">
       <form className="w-100" action="/api/binance" method="post" >
-      {listUsers}
+
       </form>
       </div>
       <form className="d-flex" role="search" action="/api/users/add" method="post">

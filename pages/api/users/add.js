@@ -1,5 +1,5 @@
 import connectMongo from '../../api/lib/connectMongo';
-import User from '../../models/userModel';
+import User from '../models/userModel';
 
 export default async function addUser(req, res) {
   try {

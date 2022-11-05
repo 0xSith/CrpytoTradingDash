@@ -2,10 +2,13 @@ const ccxt = require ('ccxt');
 import connectMongo from '../api/lib/connectMongo';
 import User from '../api/models/userModel';
 
+
+
 export default async function getData(req,res){
-  const userID = req.body.id;
-  const selectedUser = await User.findById({_id:userID},'key secret');
-  const {key,secret} = selectedUser;
+  // const userID = req.body.id;
+  // const selectedUser = await User.findById({_id:userID},'key secret');
+  const key = process.env.Key;
+  const secret = process.env.Secret;
 
 
   let exchange = new ccxt.binanceusdm (
@@ -15,9 +18,9 @@ export default async function getData(req,res){
       'enableRateLimit': true
     })
 
-    if(userID === "630d484f3e9aea5a9bd30210"){
+    // if(userID === "630d484f3e9aea5a9bd30210"){
     exchange.setSandboxMode(true);
-  }
+  // }
 
 
   let accountBalances = await exchange.fetchBalance();
