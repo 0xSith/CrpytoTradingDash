@@ -15,7 +15,6 @@ document.getElementById("LimitorderTypeMenu").innerHTML = symbol;
 document.getElementById("MarketorderTypeMenu").innerHTML = symbol;
 },[symbol])
 
-
 function handleClickRadio(){
 
   let multi = event.target.value;
@@ -46,7 +45,7 @@ function handleClickRadio(){
 
       {positions.map((position) =>{
         return(
-        <div className="row">
+        <div className="row" key = {position.symbol}>
           <div className="col">
             <h6>Position</h6>
             <p>{position.symbol}</p>
@@ -102,7 +101,7 @@ function handleClickRadio(){
                 <button className="btn btn-light dropdown-toggle btn" type="button" data-bs-toggle="dropdown" id="LimitorderTypeMenu" ></button>
                 <ul className="dropdown-menu dropdown-menu-light">
                 {positions.map((position) => {
-                  return (<li><button className="dropdown-item" type="button" onClick={() => {
+                  return (<li key={position.symbol}><button className="dropdown-item" type="button" onClick={() => {
                     setSymbol(position.symbol)
                     position.positionAmt < 0 ? setSide("Buy"): setSide("Sell")
                   }}>{position.symbol} {position.positionAmt < 0 ? "SHORT":"LONG"}</button></li>)
@@ -158,7 +157,7 @@ function handleClickRadio(){
                   <button className="btn btn-dark dropdown-toggle btn" type="button" data-bs-toggle="dropdown" id="MarketorderTypeMenu" ></button>
                   <ul className="dropdown-menu dropdown-menu-dark">
                   {positions.map((position) => {
-                    return (<li><button className="dropdown-item" type="button" onClick={() => {
+                    return (<li key={position.symbol}><button className="dropdown-item" type="button" onClick={() => {
                       setSymbol(position.symbol)
                       position.positionAmt < 0 ? setSide("Buy"): setSide("Sell")
                     }}>{position.symbol} {position.positionAmt < 0 ? "SHORT":"LONG"}</button></li>)

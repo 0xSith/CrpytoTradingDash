@@ -38,7 +38,6 @@ const data = await response.json();
   setPositions(data.positions);
   setStreamedCoins(data.streamedCoins);
 }
-
 // if(user.length > 0){
 // // fetchData();
 // }
